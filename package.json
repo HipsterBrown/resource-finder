@@ -1,0 +1,11 @@
+{
+  "name": "package-search",
+  "version": "0.1.0",
+  "description": "A browser extension for searching NPM & Bower for package urls to use with CodePen",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hipsterbrown",
+  "license": "MIT"
+}
