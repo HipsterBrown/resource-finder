@@ -26,4 +26,4 @@ gulp.task('watch', function(){
   gulp.watch('./scss/*.scss', ['preprocess:css']);
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['preprocess:css', 'preprocess:js', 'watch']);
