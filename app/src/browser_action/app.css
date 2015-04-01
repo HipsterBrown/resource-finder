@@ -1,11 +1,46 @@
 body {
+  background: #37A3F7;
+  font-family: 'Helvetica Neue', helvetica, arial, sans-serif;
+  padding: 0 1em;
   width: 30em; }
+
+.title {
+  color: white;
+  text-align: center; }
 
 .search-input-label {
   display: block; }
 
 .search-input {
-  width: 90%; }
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px darkgrey;
+  padding: 1em;
+  width: 85%; }
+
+.search-submit {
+  -webkit-appearance: none;
+  background: white;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  outline: none;
+  margin-left: 5px;
+  padding: 1em; }
 
 .checkbox-group {
   display: inline-block; }
+
+.results {
+  list-style: none;
+  padding: 0px; }
+
+.result {
+  background: white;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px darkgrey;
+  margin-bottom: 1em;
+  padding: 1em 0.75em; }
+
+.result-info {
+  margin-top: 0px; }

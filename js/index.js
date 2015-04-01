@@ -41,10 +41,10 @@ let App = React.createClass({
         return false; 
       }  else if( Array.isArray(json.main) ) {
         json.main.forEach(function(path){
-          links.push(`https://raw.githubusercontent.com/${author}/${name}/master/${path}`);
+          links.push(`https://rawgit.com/${author}/${name}/master/${path}`);
         });
       } else {
-        links.push(`https://raw.githubusercontent.com/${author}/${name}/master/${json.main}`);
+        links.push(`https://rawgit.com/${author}/${name}/master/${json.main}`);
       }
 
       result.links = links;

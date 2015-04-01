@@ -20,7 +20,9 @@ export default React.createClass({
       D.label({
         className: "search-input-label",
         htmlFor: "search-input"
-      }, "Asset Search"),
+      }, D.h1({
+        className: "title"
+      }, "Resource Finder")),
       D.input({
         type: "search",
         className: "search-input",
