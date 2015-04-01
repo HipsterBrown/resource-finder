@@ -21,7 +21,7 @@ let App = React.createClass({
     };
   },
 
-  parseBower: function(json) {
+  parseBower(json) {
     let self = this;
     let name = json.name;
     let url = json.url;
@@ -37,7 +37,7 @@ let App = React.createClass({
     window.fetch(ghURL).then(function(response){
       return response.json();
     }).then(function(json){
-      if( json === "Not Found" ) { 
+      if( json === "Not Found" || !json.main ) { 
         return false; 
       }  else if( Array.isArray(json.main) ) {
         json.main.forEach(function(path){
@@ -49,9 +49,9 @@ let App = React.createClass({
 
       result.links = links;
 
-      return true;
-    }).then(function(){
-      if( result.links ) { console.log(result); }
+      self.setState({
+        results: self.state.results.concat(result)
+      });
     });
   },
 
@@ -61,13 +61,15 @@ let App = React.createClass({
     let self = this;
     let query = self.refs.searchForm.getDOMNode().elements['search-input'].value;
 
-    let npmFetch = window.fetch( urls.npm + query );
+    //let npmFetch = window.fetch( urls.npm + query );
     let bowerFetch = window.fetch( urls.bower + query );
 
-    Promise.all([npmFetch, bowerFetch]).then(function(results){
+    Promise.all([bowerFetch]).then(function(results){
       Promise.all(results.map(function(result){ return result.json(); }))
       .then(function(json){ 
-        let finalArr = json[1];
+        let finalArr = json[0];
+
+        self.setState({ results: [] });
         finalArr.forEach(self.parseBower);
       }); 
     });
@@ -81,7 +83,9 @@ let App = React.createClass({
         submitHandler: self.handleSubmit,
         ref: "searchForm"
       }),
-      self.state.results.length ? ResultsList() : void 0
+      self.state.results.length ? ResultsList({
+        results: self.state.results
+      }) : void 0
     ]);
   }
 });

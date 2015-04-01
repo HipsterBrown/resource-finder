@@ -32,19 +32,6 @@ export default React.createClass({
         type: "submit",
         className: "search-submit",
         value: "Go"
-      }),
-      CheckboxGroup({
-        id: "check-npm",
-        value: "true",
-        label: "NPM",
-        defaultChecked: true
-      }),
-      CheckboxGroup({
-        id: "check-bower",
-        value: "true",
-        label: "Bower",
-        defaultChecked: true
-      })
-    ]);
+      })]);
   }
 });
