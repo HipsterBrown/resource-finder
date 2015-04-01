@@ -27,10 +27,32 @@ let App = React.createClass({
     let url = json.url;
     let author = url.split('/')[3];
     let ghURL = `${urls.github}${author}/${name}/blob/master/bower.json`;
+    let links = [];
+    let result = {
+      name: name,
+      author: author,
+      url: url
+    };
 
     window.fetch(ghURL).then(function(response){
       return response.json();
-    }).then(function(json){ console.log(json.main); });
+    }).then(function(json){
+      if( json === "Not Found" ) { 
+        return false; 
+      }  else if( Array.isArray(json.main) ) {
+        json.main.forEach(function(path){
+          links.push(`https://raw.githubusercontent.com/${author}/${name}/master/${path}`);
+        });
+      } else {
+        links.push(`https://raw.githubusercontent.com/${author}/${name}/master/${json.main}`);
+      }
+
+      result.links = links;
+
+      return true;
+    }).then(function(){
+      if( result.links ) { console.log(result); }
+    });
   },
 
   handleSubmit(e) {
