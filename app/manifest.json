@@ -14,5 +14,8 @@
     "default_icon": "icons/icon19.png",
     "default_title": "Package Search",
     "default_popup": "src/browser_action/index.html"
-  }
+  },
+  "permissions": [
+    "clipboardWrite"
+  ]
 }

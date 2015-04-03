@@ -48,6 +48,7 @@ let App = React.createClass({
       }
 
       result.links = links;
+      result.version = json.version;
 
       self.setState({
         results: self.state.results.concat(result)

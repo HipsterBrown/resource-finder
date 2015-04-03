@@ -22,7 +22,9 @@ export default React.createClass({
     return D.section({
       className: 'results-container'
     }, [
-      D.h3({}, "Results List"),
+      D.h2({
+        className: "results-title"
+      }, "Results:"),
       D.ul({
         className: 'results'
       }, self.props.results.map(self.createResult)) 
