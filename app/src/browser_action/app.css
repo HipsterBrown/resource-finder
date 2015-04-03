@@ -23,6 +23,7 @@ body {
   display: block; }
 
 .search-input {
+  -webkit-appearance: none;
   border: 0px;
   border-radius: 0px;
   box-shadow: none;

@@ -17,8 +17,18 @@ let App = React.createClass({
 
   getInitialState() {
     return {
-      results: []
+      results: [],
+      error: false
     };
+  },
+
+  componentDidMount() {
+    let self = this;
+    let cache = self.fetchCache();
+
+    if( cache ) {
+      cache.forEach(self.parseBower);
+    }
   },
 
   parseBower(json) {
@@ -56,11 +66,52 @@ let App = React.createClass({
     });
   },
 
+  storeResults(data) {
+    let dataString = JSON.stringify(data);
+
+    window.localStorage.setItem('results', dataString);
+  },
+
+  fetchCache() {
+    let dataString = window.localStorage.getItem('results');
+
+    return dataString ? JSON.parse(dataString) : false;
+  },
+
+  saveQuery(string) {
+    let queries = window.localStorage.getItem('queries') || "[]";
+
+    queries = JSON.parse(queries);
+    queries.push(string);
+    queries = JSON.stringify(queries);
+
+    window.localStorage.setItem('queries', queries);
+  },
+    
+  fetchQueries() {
+    let queries = window.localStorage.getItem('queries');
+
+    return queries ? JSON.parse(queries) : false;
+  },
+
   handleSubmit(e) {
     e.preventDefault();
 
     let self = this;
     let query = self.refs.searchForm.getDOMNode().elements['search-input'].value;
+
+    if(query) {
+      self.saveQuery(query);
+    } else {
+      self.setState({
+        error: D.h2({ className: "error-message" }, "I Think You Forgot Something...")
+      });
+      return false;
+    }
+
+    if (self.state.error) {
+      self.setState({ error: false });
+    }
 
     //let npmFetch = window.fetch( urls.npm + query );
     let bowerFetch = window.fetch( urls.bower + query );
@@ -70,8 +121,16 @@ let App = React.createClass({
       .then(function(json){ 
         let finalArr = json[0];
 
+        if (!finalArr.length) {
+          self.setState({
+            error: D.h2({ className: "error-message" }, "No Results Found")
+          });
+          return false;
+        }
+
         self.setState({ results: [] });
         finalArr.forEach(self.parseBower);
+        self.storeResults(finalArr);
       }); 
     });
   },
@@ -84,7 +143,7 @@ let App = React.createClass({
         submitHandler: self.handleSubmit,
         ref: "searchForm"
       }),
-      self.state.results.length ? ResultsList({
+      self.state.error ? self.state.error : self.state.results.length ? ResultsList({
         results: self.state.results
       }) : void 0
     ]);

@@ -17,6 +17,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "awesomplete": "git://github.com/LeaVerou/awesomplete#gh-pages",
     "bower": "^1.3.12",
     "npm": "^2.7.4",
     "react": "^0.13.1",
