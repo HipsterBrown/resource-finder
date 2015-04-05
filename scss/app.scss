@@ -1,14 +1,16 @@
+@import 'bourbon';
+
 $blue-primary: #37A3F7;
 
 * {
   box-sizing: border-box;
-  font-family: Verdana, helvetica, arial, sans-serif;
+  font-family: $verdana;
 }
 
 body {
   background: $blue-primary;
   color: lighten(black, 30%);
-  font-family: Verdana, helvetica, arial, sans-serif;
+  font-family: $verdana;
   padding: 0 1em;
   width: 30em;
 }
@@ -26,18 +28,57 @@ body {
   display: block;
 }
 
+.awesomplete {
+  position: relative;
+  width: 80%;
+
+  > ul {
+	background: white;
+  box-shadow: 0px 2px 4px rgba(darken($blue-primary, 20%), 0.6);
+	list-style: none;
+	padding: 0em;
+	position: absolute;
+	top: 70%;
+	width: 100%;
+	z-index: 10;
+
+	li {
+		color: lighten(black, 30%);
+		padding: 1em;
+
+		&:hover, &[aria-selected=true] {
+			background: darken($blue-primary, 10%);
+			color: white;
+	  }
+  }
+  }
+}
+
+.visually-hidden {
+  display: none;
+}
+
+.error-message {
+	background: adjust-color(red, $red: 15);
+	color: white;
+	padding: 0.5em 1em;
+}
+
 .search-input {
+  animation: fly-in 0.5s $ease-out-quart forwards 1s;
   -webkit-appearance: none;
   border: 0px;
   border-radius: 0px;
   box-shadow: none;
   color: lighten(black, 30%);
   font-size: 1.2em;
-  padding: 1em;
-  width: 80%;
+  padding: 1em 0.5em;
+  transform: translateX(-120%);
+  width: 100%;
 }
 
 .search-submit {
+  animation: fly-in 0.5s $ease-out-quart forwards 1s;
   appearance: none;
   background: white;
   border: 0px;
@@ -48,6 +89,15 @@ body {
   outline: none;
   margin-left: 5px;
   padding: 1em;
+  transform: translateX(150%);
+
+  &:hover {
+	cursor: pointer;
+  }
+
+  &:active {
+	transform: scale(0.9);
+  }
 }
 
 .checkbox-group {
@@ -64,16 +114,21 @@ body {
 }
 
 .result {
+  animation: fade-in 0.35s $ease-out-quad forwards;
   background: white;
-  border: 1px solid lightgrey;
+  border: 1px solid darken($blue-primary, 20%);
   border-radius: 3px;
-  box-shadow: 0px 2px 4px darkgrey;
+  box-shadow: 0px 2px 4px rgba(darken($blue-primary, 20%), 0.6);
   margin-bottom: 1em;
+  opacity: 0;
   padding: 1em 0.75em;
+  transform: translateY(50%);
 }
 
 .result-name {
   margin: 0 0 0.25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: capitalize;
 }
 
@@ -113,4 +168,17 @@ body {
 
 .copy-path {
   fill: $blue-primary;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+	transform: translateY(0);
+  }
+}
+
+@keyframes fly-in {
+  to {
+    transform: translateX(0);
+  }
 }

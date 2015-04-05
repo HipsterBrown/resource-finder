@@ -58,7 +58,7 @@ let App = React.createClass({
       }
 
       result.links = links;
-      result.version = json.version;
+      result.version = json.version || "N/A";
 
       self.setState({
         results: self.state.results.concat(result)
@@ -80,9 +80,15 @@ let App = React.createClass({
 
   saveQuery(string) {
     let queries = window.localStorage.getItem('queries') || "[]";
+	let query = string.toLowerCase();
 
     queries = JSON.parse(queries);
-    queries.push(string);
+
+	if(queries.indexOf(query) !== -1) {
+	  return false;
+	}
+
+    queries.push(query);
     queries = JSON.stringify(queries);
 
     window.localStorage.setItem('queries', queries);
@@ -104,7 +110,7 @@ let App = React.createClass({
       self.saveQuery(query);
     } else {
       self.setState({
-        error: D.h2({ className: "error-message" }, "I Think You Forgot Something...")
+        error: D.h3({ className: "error-message" }, "I Think You Forgot Something...")
       });
       return false;
     }

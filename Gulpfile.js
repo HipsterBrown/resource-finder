@@ -18,7 +18,9 @@ gulp.task('preprocess:js', function(){
 
 gulp.task('preprocess:css', function(){
   return gulp.src('./scss/app.scss')
-	.pipe(sass())
+	.pipe(sass({
+	  includePaths: require('node-bourbon').includePaths
+	}))
         .pipe(autoprefix())
 	.pipe(gulp.dest('./app/src/browser_action'));
 });
