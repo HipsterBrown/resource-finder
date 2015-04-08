@@ -9,7 +9,14 @@ export default React.createClass({
   displayName: "ResultsList",
 
   propTypes: {
-    results: Type.array.isRequired
+    results: Type.array.isRequired,
+    title: Type.string
+  },
+
+  getDefaultProps() {
+    return {
+      title: "Results: "
+    };
   },
 
   createResult(val) {
@@ -24,7 +31,7 @@ export default React.createClass({
     }, [
       D.h2({
         className: "results-title"
-      }, "Results:"),
+      }, self.props.title),
       D.ul({
         className: 'results'
       }, self.props.results.map(self.createResult)) 

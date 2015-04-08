@@ -18,7 +18,8 @@ let App = React.createClass({
   getInitialState() {
     return {
       results: [],
-      error: false
+      error: false,
+      listTitle: "Most Recent Results: "
     };
   },
 
@@ -134,7 +135,10 @@ let App = React.createClass({
           return false;
         }
 
-        self.setState({ results: [] });
+        self.setState({ 
+          results: [],
+          listTitle: `Results for "${query}": `
+        });
         finalArr.forEach(self.parseBower);
         self.storeResults(finalArr);
       }); 
@@ -150,7 +154,8 @@ let App = React.createClass({
         ref: "searchForm"
       }),
       self.state.error ? self.state.error : self.state.results.length ? ResultsList({
-        results: self.state.results
+        results: self.state.results,
+        title: self.state.listTitle
       }) : void 0
     ]);
   }
