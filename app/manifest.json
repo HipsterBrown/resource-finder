@@ -1,6 +1,6 @@
 {
   "name": "Resource Finder",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "manifest_version": 2,
   "description": "An extension for searching Bower for front-end packages for use with CodePen and other apps like it.",
   "homepage_url": "https://github.com/HipsterBrown/resource-finder",
